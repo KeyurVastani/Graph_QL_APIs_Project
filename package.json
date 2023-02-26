@@ -2,6 +2,7 @@
   "name": "graph_ql_apis_project",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/KeyurVastani/Graph_QL_APIs_Project/issues"
   },
-  "homepage": "https://github.com/KeyurVastani/Graph_QL_APIs_Project#readme"
+  "homepage": "https://github.com/KeyurVastani/Graph_QL_APIs_Project#readme",
+  "dependencies": {
+    "@apollo/server": "^4.4.0",
+    "graphql": "^16.6.0",
+    "nodemon": "^2.0.20"
+  }
 }

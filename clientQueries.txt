@@ -1,0 +1,40 @@
+query getAllUsers{
+    users {
+      email
+      firstName
+      id
+      lastName
+    }
+  }
+
+  -----------------------
+
+query getAllQuotes{
+  quotes {
+    name
+    by
+  }
+}
+
+-----------------
+query getUserWithQuotes{
+  users {
+    id
+    lastName
+    quotes {
+      name
+      by
+    }
+  }
+}
+----------------------------
+
+query getUserById($singleUserId: ID!){
+  singleUser(id: $singleUserId) {
+    firstName
+    lastName
+    quotes {
+      name
+    }
+  }
+} 

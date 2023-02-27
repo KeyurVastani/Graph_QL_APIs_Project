@@ -1,10 +1,10 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import typeDefs from "./schema.js";
-import resolvers from "./resolvers.js";
 import mongoose from "mongoose";
 import { MONGO_URI } from "./config.js";
 
+mongoose.set("strictQuery", false);
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -18,6 +18,9 @@ mongoose.connection.on("error", (err) => {
   console.log("coonection error================error", err);
 });
 
+import "./modal/Quotes.js";
+import "./modal/User.js";
+import resolvers from "./resolvers.js";
 const server = new ApolloServer({ typeDefs, resolvers });
 
 const { url } = await startStandaloneServer(server, {

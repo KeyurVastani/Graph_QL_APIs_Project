@@ -38,3 +38,13 @@ query getUserById($singleUserId: ID!){
     }
   }
 } 
+
+-----------------------
+mutation SignUpDummyUser($newUser: userInput) {
+  user:signUpDummyUser(newUser: $newUser) {
+    email
+    firstName
+    id
+    lastName
+  }
+}

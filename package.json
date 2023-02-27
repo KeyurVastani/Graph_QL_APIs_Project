@@ -20,7 +20,10 @@
   "homepage": "https://github.com/KeyurVastani/Graph_QL_APIs_Project#readme",
   "dependencies": {
     "@apollo/server": "^4.4.0",
+    "bcryptjs": "^2.4.3",
     "graphql": "^16.6.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.10.0",
     "nodemon": "^2.0.20"
   }
 }

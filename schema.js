@@ -2,24 +2,29 @@ const typeDefs = `#graphql
   type Query {
     greet:String
     users:[User]
-    singleUser(id:ID!):User
+    singleUser(_id:ID!):User
     quotes:[Quote]
     individualQuote(by:ID!):[Quote]
   }
   type User{
-    id:ID!
+    _id:ID!
     firstName:String
     lastName:String
     email:String
+    password:String
     quotes:[Quote]
   }
   type Quote{
     name:String
     by:ID
-      createrName:String
+    createrName:String
+  }
+  type Token{
+    token:String
   }
   type Mutation{
-      signUpDummyUser(newUser:userInput):User
+      signUpUser(newUser:userInput):User
+      signInUser(userSignIn:userSignInInput):Token
   }
 
   input userInput{
@@ -28,6 +33,12 @@ const typeDefs = `#graphql
     email:String!
     password:String!
   }
+
+  input userSignInInput{
+    email:String!
+    password:String!
+  }
+
 `;
 
 export default typeDefs;

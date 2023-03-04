@@ -18,8 +18,11 @@ mongoose.connection.on("error", (err) => {
   console.log("coonection error================error", err);
 });
 
+//import modal here
 import "./modal/Quotes.js";
 import "./modal/User.js";
+
+//first declare modal because we use modal in resolver
 import resolvers from "./resolvers.js";
 const server = new ApolloServer({ typeDefs, resolvers });
 

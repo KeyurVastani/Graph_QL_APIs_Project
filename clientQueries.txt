@@ -48,3 +48,43 @@ mutation SignUpDummyUser($newUser: userInput) {
     lastName
   }
 }
+--------------------------
+mutation SignInUser($userSignIn: userSignInInput) {
+  signInUser(userSignIn: $userSignIn) {
+    token
+  }
+}
+
+{
+  "userSignIn": {
+    "email": "Keyur1",
+    "password": "123456"
+  }
+}
+
+----------------------------
+
+mutation SignUpUser($newUser: userInput) {
+  signUpUser(newUser: $newUser) {
+    firstName
+    lastName
+    password
+    email
+    _id
+  }
+}
+
+{
+  "newUser": {
+    "email": "Keyur1",
+    "firstName": "Vastani1",
+    "lastName": "keyur1@gmail.com",
+    "password": "123456"
+  }
+}
+
+-----------------------
+
+mutation CreateQuote($name: String!) {
+  createQuote(name: $name)
+}

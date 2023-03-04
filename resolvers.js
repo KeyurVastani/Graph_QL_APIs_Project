@@ -3,11 +3,15 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import { JWT_SECRET } from "./config.js";
 import jwt from "jsonwebtoken";
+
 const User = mongoose.model("User");
+const Quote = mongoose.model("Quote");
 
 const resolvers = {
   Query: {
-    users: () => users,
+    users: async () => {
+      return await User.find();
+    },
     greet: () => "Keyur vastani",
     quotes: () => quotes,
     singleUser: (_, args) => users.find((user) => user._id === args._id),
@@ -37,6 +41,17 @@ const resolvers = {
       }
       const token = jwt.sign({ userId: user._id }, JWT_SECRET);
       return { token };
+    },
+    createQuote: async (_, { name }, { userId }) => {
+      //above third field is called context and we destructure it
+      console.log("userid====>", userId);
+      if (!userId) throw new Error("You must be log in first");
+      const newQuote = new Quote({
+        name,
+        by: userId,
+      });
+      await newQuote.save();
+      return "Quote save successfully";
     },
   },
   User: {

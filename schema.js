@@ -25,6 +25,7 @@ const typeDefs = `#graphql
   type Mutation{
       signUpUser(newUser:userInput):User
       signInUser(userSignIn:userSignInInput):Token
+      createQuote(name:String!):String
   }
 
   input userInput{

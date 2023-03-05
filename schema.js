@@ -26,6 +26,8 @@ const typeDefs = `#graphql
       signUpUser(newUser:userInput):User
       signInUser(userSignIn:userSignInInput):Token
       createQuote(name:String!):String
+      deleteUser(id:ID!):String
+      updateUser(updatedUserData:updatedUserInput):User
   }
 
   input userInput{
@@ -34,6 +36,14 @@ const typeDefs = `#graphql
     email:String!
     password:String!
   }
+
+  input updatedUserInput{
+    firstName:String
+    lastName:String
+    email:String
+    password:String
+  }
+
 
   input userSignInInput{
     email:String!

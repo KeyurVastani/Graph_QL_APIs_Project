@@ -88,3 +88,7 @@ mutation SignUpUser($newUser: userInput) {
 mutation CreateQuote($name: String!) {
   createQuote(name: $name)
 }
+
+{
+  "name": "life is easy"
+}

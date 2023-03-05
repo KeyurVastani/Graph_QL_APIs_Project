@@ -10,12 +10,11 @@ const Quote = mongoose.model("Quote");
 const resolvers = {
   Query: {
     users: async () => {
-      return await User.find();
+      return await User.find({});
     },
-    greet: () => "Keyur vastani",
-    quotes: () => quotes,
-    singleUser: (_, args) => users.find((user) => user._id === args._id),
-    individualQuote: (_, { by }) => quotes.filter((quote) => quote.by === by),
+    quotes: async () => await Quote.find({}),
+    singleUser: async (_, args) => await User.findOne({ _id: args._id }),
+    individualQuote: async (_, { by }) => await Quote.find({ by: by }),
   },
   Mutation: {
     signUpUser: async (_, { newUser }) => {
@@ -53,14 +52,37 @@ const resolvers = {
       await newQuote.save();
       return "Quote save successfully";
     },
+    deleteUser: async (_, { id }) => {
+      const user = await User.deleteOne({ _id: id });
+      if (user) {
+        return "User deleted successfully";
+      } else {
+        throw new Error("Invalid user id");
+      }
+    },
+    updateUser: async (_, { updatedUserData }, { userId }) => {
+      if (updatedUserData.password) {
+        const hashedPassword = await bcrypt.hash(updatedUserData.password, 10);
+      }
+      const updatedData = await User.findOneAndUpdate(
+        { _id: userId },
+        {
+          $set: {
+            ...updatedUserData,
+          },
+        },
+        { new: true }
+      );
+      console.log("updated data====", updatedData);
+      return updatedData;
+    },
   },
   User: {
-    quotes: (parentUser) =>
-      quotes.filter((quote) => quote.by === parentUser._id),
+    quotes: async (parentUser) => await Quote.find({ by: parentUser._id }),
   },
   Quote: {
-    createrName: (quote) => {
-      const { firstName } = users.find((user) => user._id === quote.by);
+    createrName: async (quote) => {
+      const { firstName } = await User.findOne({ _id: quote.by });
       return firstName;
     },
   },

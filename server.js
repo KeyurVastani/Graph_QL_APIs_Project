@@ -40,6 +40,7 @@ const context = async ({ req }) => {
 
 const { url } = await startStandaloneServer(server, {
   context,
+  // also write context here
   // context: async ({ req }) => {
   //   console.log("req header====", req);
   //   const { authorizatinon } = req.header;

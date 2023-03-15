@@ -73,7 +73,6 @@ const resolvers = {
         },
         { new: true }
       );
-      console.log("updated data====", updatedData);
       return updatedData;
     },
   },

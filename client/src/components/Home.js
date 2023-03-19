@@ -1,6 +1,48 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    (async () => {
+      const users = await fetch("http://localhost:4000/s", {
+        method: "post",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          query: `query getAllQuotes {
+              quotes {
+                by
+                createrName
+                name
+              }
+            }`,
+        }),
+      });
+
+      const data = await users.json();
+      console.log("usersa=====>", data);
+    })();
+    // fetch("http://localhost:4000/", {
+    //   method: "post",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     query: `query getAllQuotes {
+    //       quotes {
+    //         by
+    //         createrName
+    //         name
+    //       }
+    //     }`,
+    //   }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log("data=====>", data);
+    //   });
+  }, []);
+
   return (
     <div className="container">
       <blockquote>

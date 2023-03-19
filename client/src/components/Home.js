@@ -1,61 +1,26 @@
-import React, { useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import React from "react";
+import { GET_ALL_QUOTES } from "../gqlOperations/queries";
 
 export default function Home() {
-  useEffect(() => {
-    (async () => {
-      const users = await fetch("http://localhost:4000/s", {
-        method: "post",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          query: `query IndividualQuote($by: ID!) {
-            individualQuote(by: $by) {
-              by
-              createrName
-              name
-            }
-          }`,
-          variables: {
-            by: "6402e5b10e5539553591eeb6",
-          },
-        }),
-      });
-
-      const data = await users.json();
-      console.log("usersa=====>", data);
-    })();
-    // fetch("http://localhost:4000/", {
-    //   method: "post",
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     query: `query getAllQuotes {
-    //       quotes {
-    //         by
-    //         createrName
-    //         name
-    //       }
-    //     }`,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log("data=====>", data);
-    //   });
-  }, []);
-
+  const { loading, error, data } = useQuery(GET_ALL_QUOTES);
+  console.log("loading===>", loading);
+  console.log("error===>", error);
+  console.log("data===>", data);
+  if (loading) return <h1>Loading ....</h1>;
+  if (error) {
+    console.log(error.message);
+  }
   return (
     <div className="container">
-      <blockquote>
-        <h6>if it works dont touch it</h6>
-        <p className="right-align">~ram</p>
-      </blockquote>
-      <blockquote>
-        <h6>if it works dont touch it</h6>
-        <p className="right-align">~ram</p>
-      </blockquote>
+      {data?.quotes.map((singleQuote, index) => {
+        return (
+          <blockquote key={index}>
+            <h6>{singleQuote.name}</h6>
+            <p className="right-align">~{singleQuote.createrName}</p>
+          </blockquote>
+        );
+      })}
     </div>
   );
 }

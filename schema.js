@@ -15,6 +15,7 @@ const typeDefs = `#graphql
     quotes:[Quote]
   }
   type Quote{
+    _id:ID
     name:String
     by:ID
     createrName:String

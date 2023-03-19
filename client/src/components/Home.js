@@ -9,13 +9,16 @@ export default function Home() {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
-          query: `query getAllQuotes {
-              quotes {
-                by
-                createrName
-                name
-              }
-            }`,
+          query: `query IndividualQuote($by: ID!) {
+            individualQuote(by: $by) {
+              by
+              createrName
+              name
+            }
+          }`,
+          variables: {
+            by: "6402e5b10e5539553591eeb6",
+          },
         }),
       });
 
